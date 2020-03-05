@@ -1,0 +1,26 @@
+{
+  "name": "re-amqp-connection-manager",
+  "version": "0.0.0-development",
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "test": "echo \"no test specified\" && exit 0",
+    "prebuild": "npm run clean",
+    "prestart": "npm run clean",
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^7.1.1",
+    "semantic-release": "^17.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amsross/re-amqp-connection-manager.git"
+  }
+}

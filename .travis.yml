@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - lts/*
+cache:
+  directories:
+    - node_modules
+install: npm ci
+script: npm run build
+jobs:
+  include:
+    - stage: release
+      node_js: lts/*
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release
