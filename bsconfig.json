@@ -1,5 +1,5 @@
 {
-  "name": "re-amqp-connection-manager",
+  "name": "bs-amqp-connection-manager",
   "version": "0.1.0",
   "sources": {
     "dir" : "src",
