@@ -15,12 +15,7 @@ let onMessage = (channel, msg: Amqp.Queue.message) => {
 };
 
 // Create a connetion manager
-let connection =
-  Amqp.connect(
-    [|"amqp://my-amqp"|],
-    ~options={"heartbeatIntervalInSeconds": 5},
-    (),
-  );
+let connection = Amqp.connect([|"amqp://localhost"|], ());
 
 Amqp.AmqpConnectionManager.on(
   connection,
