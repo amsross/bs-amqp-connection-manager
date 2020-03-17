@@ -53,6 +53,7 @@ module ChannelWrapper: {
   let nack: t => nack;
   let queueLength: t => int;
   let close: t => unit;
+  let waitForConnect: t => Js.Promise.t(unit);
 
   let on:
     (

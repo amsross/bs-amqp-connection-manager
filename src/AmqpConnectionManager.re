@@ -68,6 +68,8 @@ module ChannelWrapper = {
   [@bs.send] external nack: (t, Queue.message) => unit = "nack";
   [@bs.send] external queueLength: t => int = "queueLength";
   [@bs.send] external close: t => unit = "close";
+  [@bs.send]
+  external waitForConnect: t => Js.Promise.t(unit) = "waitForConnect";
 
   [@bs.send]
   external on:
