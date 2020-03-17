@@ -4,15 +4,15 @@ type urls = array(url);
 exception ConnectionError(Js.Exn.t);
 
 module Queue: {
-  type name;
+  type name = string;
   type message = {content: Node.Buffer.t};
 };
 
-module Exchange: {type name;};
+module Exchange: {type name = string;};
 
 module Channel: {
   type t;
-  type name;
+  type name = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
 
@@ -44,7 +44,7 @@ module Channel: {
 
 module ChannelWrapper: {
   type t;
-  type name;
+  type name = string;
   type routingKey = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;

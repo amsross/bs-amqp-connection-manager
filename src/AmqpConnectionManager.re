@@ -9,12 +9,12 @@ module Queue = {
 };
 
 module Exchange = {
-  type name;
+  type name = string;
 };
 
 module Channel = {
   type t;
-  type name;
+  type name = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
 
@@ -59,7 +59,7 @@ module Channel = {
 
 module ChannelWrapper = {
   type t;
-  type name;
+  type name = string;
   type routingKey = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
