@@ -82,7 +82,7 @@ module ChannelWrapper = {
 
   [@bs.send]
   external publish':
-    (t, Exchange.name, routingKey, Js.Json.t, Js.t('options)) =>
+    (t, Exchange.name, routingKey, 'message, Js.t('options)) =>
     Js.Promise.t(unit) =
     "publish";
 
@@ -91,7 +91,7 @@ module ChannelWrapper = {
 
   [@bs.send]
   external sendToQueue':
-    (t, Queue.name, Js.Json.t, Js.t('options)) => Js.Promise.t(unit) =
+    (t, Queue.name, 'message, Js.t('options)) => Js.Promise.t(unit) =
     "sendToQueue";
 
   let sendToQueue = (t, q, m, o) =>

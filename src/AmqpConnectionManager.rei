@@ -63,11 +63,11 @@ module ChannelWrapper: {
     t;
 
   let publish:
-    (t, Exchange.name, routingKey, Js.Json.t, Js.t('options)) =>
-    Js.Promise.t(Js.Json.t);
+    (t, Exchange.name, routingKey, 'message, Js.t('options)) =>
+    Js.Promise.t('message);
 
   let sendToQueue:
-    (t, Queue.name, Js.Json.t, Js.t('options)) => Js.Promise.t(Js.Json.t);
+    (t, Queue.name, 'message, Js.t('options)) => Js.Promise.t('message);
 };
 
 module AmqpConnectionManager: {
