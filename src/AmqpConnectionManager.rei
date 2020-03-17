@@ -77,8 +77,13 @@ module AmqpConnectionManager: {
   type t;
   module Options: {type t('connectionOptions) = Js.t('connectionOptions);};
 
+  /** Returns true if the AmqpConnectionManager is connected to a broker, false
+   * otherwise. */
   let isConnected: t => bool;
+
+  /** Close this AmqpConnectionManager and free all associated resources. */
   let close: t => unit;
+
   let on:
     (
       t,
@@ -96,9 +101,15 @@ module AmqpConnectionManager: {
     ) =>
     t;
 
-  let createChannel: (t, Channel.Config.t) => ChannelWrapper.t;
+  /** Create a new ChannelWrapper. This is a proxy for the actual channel (which
+   * may or may not exist at any moment, depending on whether or not we are
+   * currently connected.) */
+  let createChannel: (t, Channel.Config.t('a)) => ChannelWrapper.t;
 };
 
+/** Creates a new AmqpConnectionManager, which will connect to one of the URLs
+ * provided in `urls`. If a broker is unreachable or dies, then
+ * AmqpConnectionManager will try the next available broker, round-robin. */
 let connect:
   (urls, ~options: AmqpConnectionManager.Options.t('a)=?, unit) =>
   AmqpConnectionManager.t;
