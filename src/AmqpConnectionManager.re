@@ -22,11 +22,7 @@ module Channel = {
   [@bs.send] external nack: (t, Queue.message) => unit = "nack";
 
   module Config = {
-    type nonrec t = {
-      .
-      "json": bool,
-      "setup": t => Js.Promise.t(unit),
-    };
+    type nonrec t('a) = {.. "setup": t => Js.Promise.t(unit)} as 'a;
   };
 
   [@bs.send]
@@ -130,7 +126,7 @@ module AmqpConnectionManager = {
     "on";
 
   [@bs.send]
-  external createChannel: (t, Channel.Config.t) => ChannelWrapper.t =
+  external createChannel: (t, Channel.Config.t('a)) => ChannelWrapper.t =
     "createChannel";
 };
 

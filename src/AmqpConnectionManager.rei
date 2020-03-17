@@ -20,11 +20,7 @@ module Channel: {
   let nack: t => nack;
 
   module Config: {
-    type nonrec t = {
-      .
-      "json": bool,
-      "setup": t => Js.Promise.t(unit),
-    };
+    type nonrec t('a) = {.. "setup": t => Js.Promise.t(unit)} as 'a;
   };
 
   let assertExchange:
