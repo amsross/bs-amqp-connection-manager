@@ -1,21 +1,14 @@
 {
+  "bs-dependencies": [],
   "name": "bs-amqp-connection-manager",
-  "version": "0.1.0",
-  "sources": {
-    "dir" : "src",
-    "subdirs" : true
-  },
-  "package-specs": {
-    "module": "commonjs",
-    "in-source": false
-  },
-  "suffix": ".bs.js",
-  "bs-dependencies": [
-
-  ],
-  "warnings": {
-    "error" : "+101"
-  },
   "namespace": false,
-  "refmt": 3
+  "package-specs": {"in-source": false, "module": "commonjs"},
+  "refmt": 3,
+  "sources": [
+    {"dir": "src", "subdirs": true},
+    {"dir": "examples", "type": "dev"}
+  ],
+  "suffix": ".bs.js",
+  "version": "0.1.0",
+  "warnings": {"error": "+101"}
 }
