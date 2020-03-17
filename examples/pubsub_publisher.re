@@ -42,7 +42,7 @@ let rec sendMessage = () => {
     exchange_name,
     "",
     {"time": Js.Date.now()},
-    Js.Obj.empty(),
+    {"contentType": "application/json", "persistent": true},
   )
   |> Js.Promise.then_(msg => {
        Js.Console.info("Message sent");
