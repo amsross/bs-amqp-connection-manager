@@ -9,12 +9,12 @@ module Queue = {
 };
 
 module Exchange = {
-  type name;
+  type name = string;
 };
 
 module Channel = {
   type t;
-  type name;
+  type name = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
 
@@ -22,11 +22,7 @@ module Channel = {
   [@bs.send] external nack: (t, Queue.message) => unit = "nack";
 
   module Config = {
-    type nonrec t = {
-      .
-      "json": bool,
-      "setup": t => Js.Promise.t(unit),
-    };
+    type nonrec t('a) = {.. "setup": t => Js.Promise.t(unit)} as 'a;
   };
 
   [@bs.send]
@@ -59,7 +55,7 @@ module Channel = {
 
 module ChannelWrapper = {
   type t;
-  type name;
+  type name = string;
   type routingKey = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
@@ -68,6 +64,8 @@ module ChannelWrapper = {
   [@bs.send] external nack: (t, Queue.message) => unit = "nack";
   [@bs.send] external queueLength: t => int = "queueLength";
   [@bs.send] external close: t => unit = "close";
+  [@bs.send]
+  external waitForConnect: t => Js.Promise.t(unit) = "waitForConnect";
 
   [@bs.send]
   external on:
@@ -84,7 +82,7 @@ module ChannelWrapper = {
 
   [@bs.send]
   external publish':
-    (t, Exchange.name, routingKey, Js.Json.t, Js.t('options)) =>
+    (t, Exchange.name, routingKey, 'message, Js.t('options)) =>
     Js.Promise.t(unit) =
     "publish";
 
@@ -93,7 +91,7 @@ module ChannelWrapper = {
 
   [@bs.send]
   external sendToQueue':
-    (t, Queue.name, Js.Json.t, Js.t('options)) => Js.Promise.t(unit) =
+    (t, Queue.name, 'message, Js.t('options)) => Js.Promise.t(unit) =
     "sendToQueue";
 
   let sendToQueue = (t, q, m, o) =>
@@ -128,7 +126,7 @@ module AmqpConnectionManager = {
     "on";
 
   [@bs.send]
-  external createChannel: (t, Channel.Config.t) => ChannelWrapper.t =
+  external createChannel: (t, Channel.Config.t('a)) => ChannelWrapper.t =
     "createChannel";
 };
 

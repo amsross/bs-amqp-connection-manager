@@ -4,15 +4,15 @@ type urls = array(url);
 exception ConnectionError(Js.Exn.t);
 
 module Queue: {
-  type name;
+  type name = string;
   type message = {content: Node.Buffer.t};
 };
 
-module Exchange: {type name;};
+module Exchange: {type name = string;};
 
 module Channel: {
   type t;
-  type name;
+  type name = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
 
@@ -20,11 +20,7 @@ module Channel: {
   let nack: t => nack;
 
   module Config: {
-    type nonrec t = {
-      .
-      "json": bool,
-      "setup": t => Js.Promise.t(unit),
-    };
+    type nonrec t('a) = {.. "setup": t => Js.Promise.t(unit)} as 'a;
   };
 
   let assertExchange:
@@ -44,7 +40,7 @@ module Channel: {
 
 module ChannelWrapper: {
   type t;
-  type name;
+  type name = string;
   type routingKey = string;
   type ack = Queue.message => unit;
   type nack = Queue.message => unit;
@@ -53,6 +49,7 @@ module ChannelWrapper: {
   let nack: t => nack;
   let queueLength: t => int;
   let close: t => unit;
+  let waitForConnect: t => Js.Promise.t(unit);
 
   let on:
     (
@@ -66,19 +63,24 @@ module ChannelWrapper: {
     t;
 
   let publish:
-    (t, Exchange.name, routingKey, Js.Json.t, Js.t('options)) =>
-    Js.Promise.t(Js.Json.t);
+    (t, Exchange.name, routingKey, 'message, Js.t('options)) =>
+    Js.Promise.t('message);
 
   let sendToQueue:
-    (t, Queue.name, Js.Json.t, Js.t('options)) => Js.Promise.t(Js.Json.t);
+    (t, Queue.name, 'message, Js.t('options)) => Js.Promise.t('message);
 };
 
 module AmqpConnectionManager: {
   type t;
   module Options: {type t('connectionOptions) = Js.t('connectionOptions);};
 
+  /** Returns true if the AmqpConnectionManager is connected to a broker, false
+   * otherwise. */
   let isConnected: t => bool;
+
+  /** Close this AmqpConnectionManager and free all associated resources. */
   let close: t => unit;
+
   let on:
     (
       t,
@@ -96,9 +98,15 @@ module AmqpConnectionManager: {
     ) =>
     t;
 
-  let createChannel: (t, Channel.Config.t) => ChannelWrapper.t;
+  /** Create a new ChannelWrapper. This is a proxy for the actual channel (which
+   * may or may not exist at any moment, depending on whether or not we are
+   * currently connected.) */
+  let createChannel: (t, Channel.Config.t('a)) => ChannelWrapper.t;
 };
 
+/** Creates a new AmqpConnectionManager, which will connect to one of the URLs
+ * provided in `urls`. If a broker is unreachable or dies, then
+ * AmqpConnectionManager will try the next available broker, round-robin. */
 let connect:
   (urls, ~options: AmqpConnectionManager.Options.t('a)=?, unit) =>
   AmqpConnectionManager.t;
