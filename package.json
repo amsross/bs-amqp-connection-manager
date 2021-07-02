@@ -18,10 +18,10 @@
   "license": "MIT",
   "devDependencies": {
     "rescript": "^9.1.4",
-    "semantic-release": "^17.2.3"
+    "semantic-release": "^17.4.4"
   },
   "peerDependencies": {
-    "amqp-connection-manager": "^3.2.0"
+    "amqp-connection-manager": "^3.2.2"
   },
   "repository": {
     "type": "git",
