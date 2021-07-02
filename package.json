@@ -4,11 +4,12 @@
   "scripts": {
     "semantic-release": "semantic-release",
     "test": "echo \"no test specified\" && exit 0",
+    "format": "rescript format -all",
     "prebuild": "npm run clean",
     "prestart": "npm run clean",
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world"
+    "build": "rescript build -with-deps",
+    "start": "rescript build -with-deps -w",
+    "clean": "rescript clean -with-deps"
   },
   "keywords": [
     "BuckleScript"
@@ -16,7 +17,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^7.1.1",
+    "rescript": "^9.1.4",
     "semantic-release": "^17.2.3"
   },
   "peerDependencies": {
