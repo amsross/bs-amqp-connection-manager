@@ -1,5 +1,5 @@
 # [amqp-connection-manager](https://www.npmjs.com/package/amqp-connection-manager) (ReasonML)
-[![npm version](https://badge.fury.io/js/bs-amqp-connection-manager.svg)](https://badge.fury.io/js/bs-amqp-connection-manager) [![Build Status](https://travis-ci.org/amsross/bs-amqp-connection-manager.svg?branch=master)](https://travis-ci.org/amsross/bs-amqp-connection-manager)
+[![npm version](https://badge.fury.io/js/bs-amqp-connection-manager.svg)](https://badge.fury.io/js/bs-amqp-connection-manager) [![Build Status](https://travis-ci.com/amsross/bs-amqp-connection-manager.svg?branch=master)](https://travis-ci.com/amsross/bs-amqp-connection-manager)
 
 ## Installation
 
