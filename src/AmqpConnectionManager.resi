@@ -5,7 +5,19 @@ exception ConnectionError(Js.Exn.t)
 
 module Queue: {
   type name = string
-  type message = {content: Node.Buffer.t}
+  type rec message = {
+    fields: fields,
+    content: content,
+  }
+  and content = Node.Buffer.t
+  and fields = {
+    deliveryTag: int,
+    redelivered: bool,
+    exchange: string,
+    routingKey: string,
+    messageCount: option<int>,
+    consumerTag: option<string>,
+  }
 }
 
 module Exchange: {
