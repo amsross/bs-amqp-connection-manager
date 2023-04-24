@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "rescript": "^9.1.4",
-    "semantic-release": "^17.4.4"
+    "semantic-release": "^21.0.1"
   },
   "peerDependencies": {
     "amqp-connection-manager": "^3.2.2"
